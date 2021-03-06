@@ -53,8 +53,12 @@ def getInput():
     while (confirm.lower() != "y"):
         unEncoded = input("Type you message here for it to be encoded:\n")
         confirm = input("You message says \"" + unEncoded + "\". Do you want to encode this message(y/n)?\n")
+    global unEncodedList
+    unEncodedList = list(unEncoded)
+    print(unEncodedList)
+    return unEncodedList
 scrambler()
-getInput()
+print(getInput())
 
 
 '''
