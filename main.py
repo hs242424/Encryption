@@ -3,18 +3,17 @@ import random as r
 
 #alphabet for basic functions
 alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
-
+encodedMessage = 1
+firstHalfAlf = 1
+secondHalfAlf = 1
 #creates an alphabet as a list
-def reset():
-    global scrambledAlpabet
-    scrambledAlpabet =[]
-#immidiatly runs function
-reset()
 
 #Scrables first half and second half of the alphabet making a double slide cipher
+scrambleKey = ''
 def scrambler():
-    global scrambleVal
     global scrambleKey
+    global firstHalfAlf
+    global secondHalfAlf
     scrambleVal = r.randrange(3,8)
     if (scrambleVal == 3):
         scrambleKey = 'lf'
@@ -47,6 +46,7 @@ def scrambler():
     print(secondHalfAlf)
 
 #Function that gets the input from the user and converts it into a format that the program can use
+unEncodedList = []
 def getInput():
     #basic user interactions - no way to handle unxpected input but that should not be nessesary
     confirm = "n"
@@ -57,10 +57,37 @@ def getInput():
     unEncodedList = list(unEncoded)
     print(unEncodedList)
     return unEncodedList
+
+#encodes the message letter by letter
+def funcEncode(message):
+    #necessary global variables
+    global encodedMessage
+    global firstHalfAlf
+    global secondHalfAlf
+    isLower = False
+    encodedMessage = []
+    messageHelper = []
+    print(message)
+    message = messageHelper
+    helpVal1 = messageHelper[0]
+    isLower = False
+    if (helpVal1.lower() == helpVal1):
+        isLower = True
+    if (helpVal1.lower() in firstHalfAlf):
+        place = alphabet.index(helpVal1)
+        if (isLower):
+            encodedMessage.append(firstHalfAlf[place])
+        else:
+            encodedMessage.append(firstHalfAlf[place].upper())
+    elif (helpVal1.lower() in secondHalfAlf):
+        place = alphabet.index(helpVal1) - 13
+        if (isLower):
+            encodedMessage.append(secondHalfAlf[place])
+        else:
+            encodedMessage.append(secondHalfAlf[place].upper())
+    messageHelper.pop(0)
+    return encodedMessage
+#DO NOT REMOVE
 scrambler()
-print(getInput())
-
-
-'''
-using a place holder value that can be made using keypresses or gets exchanged with another place holder value you can replace characters in a string
-'''
+#DO NOT REMOVE
+print(funcEncode(['a']))
