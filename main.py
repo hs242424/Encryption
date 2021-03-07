@@ -14,7 +14,6 @@ print(numbers)
 scrambleKey = ''
 def scrambler():
     global scrambleKey
-    global firstHalfAlf
     global secondHalfAlf
     scrambleVal = r.randrange(3,8)
     if (scrambleVal == 3):
@@ -100,6 +99,7 @@ def funcEncode(message):
                 encodedMessage.append(secondHalfAlf[place])
             else:
                 encodedMessage.append(secondHalfAlf[place].upper())
+        #currently does nothing for spaces but that will change with the plan below
         elif (helpVal1 == ' '):
             encodedMessage.append(' ')
         elif (helpVal1 in numbers):
@@ -115,3 +115,8 @@ def funcEncode(message):
 scrambler()
 #DO NOT REMOVE
 print(funcEncode(getInput()))
+
+#To count space I am going to use a series of numbers separated by ':'. The numbers will also be scrambles so you will need to code at the beggining of the 
+#encrypted message to find out what it means
+#Also, punctuation marks will be encrypted in the end of the message, making it impossible to read for someone who is trying to figure it our on their
+# own
