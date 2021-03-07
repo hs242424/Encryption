@@ -1,4 +1,4 @@
-#required modulels
+#required module
 import random as r
 
 #alphabet for basic functions
@@ -48,7 +48,7 @@ def scrambler():
 #Function that gets the input from the user and converts it into a format that the program can use
 unEncodedList = []
 def getInput():
-    #basic user interactions - no way to handle unxpected input but that should not be nessesary
+    #basic user interactions - no way to handle unexpected input but that should not be necessary
     confirm = "n"
     while (confirm.lower() != "y"):
         unEncoded = input("Type you message here for it to be encoded:\n")
@@ -68,26 +68,34 @@ def funcEncode(message):
     encodedMessage = []
     messageHelper = []
     print(message)
-    message = messageHelper
-    helpVal1 = messageHelper[0]
-    isLower = False
-    if (helpVal1.lower() == helpVal1):
-        isLower = True
-    if (helpVal1.lower() in firstHalfAlf):
-        place = alphabet.index(helpVal1)
-        if (isLower):
-            encodedMessage.append(firstHalfAlf[place])
-        else:
-            encodedMessage.append(firstHalfAlf[place].upper())
-    elif (helpVal1.lower() in secondHalfAlf):
-        place = alphabet.index(helpVal1) - 13
-        if (isLower):
-            encodedMessage.append(secondHalfAlf[place])
-        else:
-            encodedMessage.append(secondHalfAlf[place].upper())
-    messageHelper.pop(0)
+    messageHelper = message
+    while (True):
+        if (0 == len(messageHelper)):
+            break
+        helpVal1 = messageHelper[0]
+        isLower = False
+        #lower case checker
+        if (helpVal1.lower() == helpVal1):
+            isLower = True
+        #first alphabet half checker with lowercase and uppercase checkers
+        if (helpVal1.lower() in firstHalfAlf):
+            place = alphabet.index(helpVal1.lower())
+            if (isLower):
+                encodedMessage.append(firstHalfAlf[place])
+            else:
+                encodedMessage.append(firstHalfAlf[place].upper())
+        #second alphabet half checker with lowercase and uppercase checkers
+        elif (helpVal1.lower() in secondHalfAlf):
+            place = alphabet.index(helpVal1.lower()) - 13
+            if (isLower):
+                encodedMessage.append(secondHalfAlf[place])
+            else:
+                encodedMessage.append(secondHalfAlf[place].upper())
+        elif (helpVal1 == ' '):
+            encodedMessage.append(' ')
+        messageHelper.pop(0)
     return encodedMessage
 #DO NOT REMOVE
 scrambler()
 #DO NOT REMOVE
-print(funcEncode(['a']))
+print(funcEncode(['A','b',' ','N']))
