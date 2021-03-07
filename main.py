@@ -4,8 +4,10 @@ import random as r
 #alphabet for basic functions
 alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 encodedMessage = 1
-firstHalfAlf = 1
-secondHalfAlf = 1
+firstHalfAlf = []
+secondHalfAlf = []
+numbers = ['0','1','2','3','4','5','6','7','8','9']
+scrambledNumbers = numbers
 #creates an alphabet as a list
 
 #Scrables first half and second half of the alphabet making a double slide cipher
@@ -44,6 +46,7 @@ def scrambler():
         counterVal += 1
     print(firstHalfAlf)
     print(secondHalfAlf)
+    print
 
 #Function that gets the input from the user and converts it into a format that the program can use
 unEncodedList = []
