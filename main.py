@@ -1,19 +1,19 @@
 #required module
 import random as r
 
-#alphabet for basic functions
+#creates an alphabet as a list
 alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z']
 encodedMessage = 1
 firstHalfAlf = []
 secondHalfAlf = []
 numbers = ['0','1','2','3','4','5','6','7','8','9']
 scrambledNumbers = numbers
-#creates an alphabet as a list
-print(numbers)
+
 #Scrables first half and second half of the alphabet making a double slide cipher
 scrambleKey = ''
 def scrambler():
     global scrambleKey
+    global firstHalfAlf
     global secondHalfAlf
     scrambleVal = r.randrange(3,8)
     if (scrambleVal == 3):
@@ -66,12 +66,17 @@ def getInput():
     return unEncodedList
 
 #encodes the message letter by letter
+punctuationCode = []
 def funcEncode(message):
     #necessary global variables
     global encodedMessage
     global firstHalfAlf
     global secondHalfAlf
     global numbers
+    global punctuationCode
+    #Letter counter will count letters before a space so then the punctuation distance is correct
+    secondPlaceValue = 0
+    letterCounter = 0
     isLower = False
     encodedMessage = []
     messageHelper = []
@@ -102,19 +107,32 @@ def funcEncode(message):
         #currently does nothing for spaces but that will change with the plan below
         elif (helpVal1 == ' '):
             encodedMessage.append(' ')
+            if (secondPlaceValue != 0):
+                punctuationCode.append(scrambledNumbers[secondPlaceValue])
+                secondPlaceValue = 0
+            punctuationCode.append(scrambledNumbers[letterCounter])
+            letterCounter = 0
+            punctuationCode.append(':')
         elif (helpVal1 in numbers):
             numbers = ['0','1','2','3','4','5','6','7','8','9']
             place = numbers.index(helpVal1)
             encodedMessage.append(scrambledNumbers[place])
-            print('yes')
         else:
             encodedMessage.append(helpVal1)
+            print('2')
         messageHelper.pop(0)
+        letterCounter += 1
+        if (letterCounter > 9):
+            letterCounter = 0
+            secondPlaceValue += 1
+    print(encodedMessage)
+    print(punctuationCode)
     return encodedMessage
 #DO NOT REMOVE
 scrambler()
 #DO NOT REMOVE
-print(funcEncode(getInput()))
+funcEncode(getInput())
+
 
 #To count space I am going to use a series of numbers separated by ':'. The numbers will also be scrambles so you will need to code at the beggining of the 
 #encrypted message to find out what it means
