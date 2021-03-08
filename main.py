@@ -8,6 +8,8 @@ firstHalfAlf = []
 secondHalfAlf = []
 numbers = ['0','1','2','3','4','5','6','7','8','9']
 scrambledNumbers = numbers
+#used to print lists like strings
+s = ''
 
 #Scrables first half and second half of the alphabet making a double slide cipher
 scrambleKey = ''
@@ -51,6 +53,8 @@ def scrambler():
         counterVal += 1
     print(firstHalfAlf)
     print(secondHalfAlf)
+    numbers = ['0','1','2','3','4','5','6','7','8','9']
+    print(numbers)
     print(scrambledNumbers)
 
 #Function that gets the input from the user and converts it into a format that the program can use
@@ -80,7 +84,7 @@ def funcEncode(message):
     isLower = False
     encodedMessage = []
     messageHelper = []
-    print(message)
+    print(s.join(message))
     messageHelper = message
     while (True):
         if (0 == len(messageHelper)):
@@ -104,8 +108,9 @@ def funcEncode(message):
                 encodedMessage.append(secondHalfAlf[place])
             else:
                 encodedMessage.append(secondHalfAlf[place].upper())
+        #Function will eventually handle this punctuation '.', ' ', '!', '?'
+        #might eventually be expanded to handle more if needed
         elif (helpVal1 == ' '):
-            encodedMessage.append(' ')
             if (secondPlaceValue != 0):
                 punctuationCode.append(scrambledNumbers[secondPlaceValue])
                 secondPlaceValue = 0
@@ -125,8 +130,10 @@ def funcEncode(message):
             if (letterCounter > 9):
                 letterCounter = 0
                 secondPlaceValue += 1
+    encodedMessage += ['!','!','!'] + punctuationCode
+    encodedMessage = list(scrambleKey) + encodedMessage
+    print(s.join(encodedMessage))
     print(encodedMessage)
-    print(punctuationCode)
     return encodedMessage
 #DO NOT REMOVE
 scrambler()
