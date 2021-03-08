@@ -134,7 +134,7 @@ def funcEncode(message):
     encodedMessage = list(scrambleKey) + encodedMessage
     print(s.join(encodedMessage))
     print(encodedMessage)
-    return encodedMessage
+    return s.join(encodedMessage)
 #DO NOT REMOVE
 scrambler()
 #DO NOT REMOVE
