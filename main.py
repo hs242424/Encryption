@@ -104,7 +104,6 @@ def funcEncode(message):
                 encodedMessage.append(secondHalfAlf[place])
             else:
                 encodedMessage.append(secondHalfAlf[place].upper())
-        #currently does nothing for spaces but that will change with the plan below
         elif (helpVal1 == ' '):
             encodedMessage.append(' ')
             if (secondPlaceValue != 0):
@@ -121,10 +120,11 @@ def funcEncode(message):
             encodedMessage.append(helpVal1)
             print('2')
         messageHelper.pop(0)
-        letterCounter += 1
-        if (letterCounter > 9):
-            letterCounter = 0
-            secondPlaceValue += 1
+        if not (helpVal1 == ' '):
+            letterCounter += 1
+            if (letterCounter > 9):
+                letterCounter = 0
+                secondPlaceValue += 1
     print(encodedMessage)
     print(punctuationCode)
     return encodedMessage
