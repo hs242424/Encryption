@@ -244,7 +244,8 @@ def Decode(message):
             break
         helperMessage.pop(0)
     helperMessage = list(message)
-    #Decodes the Spaces
+    counter = 0
+    #Finds where spaces begin
     while (True):
         helpVal = helperMessage[0]
         while (not helpVal == '!'):
@@ -252,17 +253,20 @@ def Decode(message):
             helpVal = helperMessage[0]
         if (helperMessage[1] == '!' and helperMessage[2] == '!'):
             for x in range(3): helperMessage.pop(0)
-            if (helperMessage == []):
-                print(helperMessage)
-                break
-            else: 
-                pass
-    print(decodedMessage)
+        break
+    #Decodes the space values
+    spaceCode = []
+    while (True):
+        if (helperMessage == []):
+            break
+        helpVal = helperMessage[0]
+        spaceCode.append(helpVal)
+        helperMessage.pop(0)
+    print(spaceCode)
 
 #DO NOT REMOVE
 scrambler()
 #DO NOT REMOVE
-funcEncode(getInput())
 unScrambler('iwblffv!!!')
 Decode('iwblffv4!!!')
 
