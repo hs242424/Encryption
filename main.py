@@ -256,7 +256,7 @@ def Decode(message):
                 print(helperMessage)
                 break
             else: 
-                print('why')
+                pass
     print(decodedMessage)
 
 #DO NOT REMOVE
