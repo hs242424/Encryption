@@ -143,6 +143,9 @@ unDecoded = []
 #Finds what the letters and numbers should equal
 def unScrambler(message):
     global unDecoded
+    global firstHalfAlf
+    global secondHalfAlf
+    global scrambledNumbers
     unDecoded = list(message)
     key = unDecoded[0] + unDecoded [1]
     print(key)
@@ -184,7 +187,20 @@ def unScrambler(message):
     print(numbers)
     print(scrambledNumbers)
 
-def Decode():
+decodedMessage = []
+#Decodes the message
+def Decode(message):
+    helperMessage = message
+    global decodedMessage
+    global firstHalfAlf
+    global secondHalfAlf
+    global scrambledNumbers
+    global alphabet
+    numbers = ['0','1','2','3','4','5','6','7','8','9']
+    counter = 0
+    while (counter < len(message)):
+        helpVal = helperMessage[0]
+        if (helpVal in firstHalfAlf)
 
 #DO NOT REMOVE
 scrambler()
