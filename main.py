@@ -17,6 +17,7 @@ def scrambler():
     global scrambleKey
     global firstHalfAlf
     global secondHalfAlf
+    global scrambledNumbers
     scrambleVal = r.randrange(3,8)
     #This is the code that tells the decoder what to arrange the letters to
     if (scrambleVal == 3):
@@ -80,6 +81,7 @@ def funcEncode(message):
     global secondHalfAlf
     global numbers
     global punctuationCode
+    global scrambledNumbers
     #Letter counter will count letters before a space so then the punctuation distance is correct
     secondPlaceValue = 0
     letterCounter = 0
@@ -146,6 +148,7 @@ def unScrambler(message):
     global firstHalfAlf
     global secondHalfAlf
     global scrambledNumbers
+    global numbers
     unDecoded = list(message)
     key = unDecoded[0] + unDecoded [1]
     print(key)
@@ -164,6 +167,8 @@ def unScrambler(message):
     counterVal = 0
     firstHalfAlf = alphabet[0:13]
     secondHalfAlf = alphabet[13:26]
+    numbers = ['0','1','2','3','4','5','6','7','8','9']
+    scrambledNumbers = numbers
     while (counterVal < scrambleVal):
         helpVal1 = firstHalfAlf[0]
         firstHalfAlf.pop(0)
@@ -190,7 +195,7 @@ def unScrambler(message):
 decodedMessage = []
 #Decodes the message
 def Decode(message):
-    helperMessage = message
+    helperMessage = list(message)
     global decodedMessage
     global firstHalfAlf
     global secondHalfAlf
@@ -198,15 +203,41 @@ def Decode(message):
     global alphabet
     numbers = ['0','1','2','3','4','5','6','7','8','9']
     counter = 0
-    while (counter < len(message)):
+    place = 0
+    isLower = False
+    helperMessage.pop(0)
+    helperMessage.pop(0)
+    while (True):
+        if (0 == len(helperMessage)):
+            break
         helpVal = helperMessage[0]
-        if (helpVal in firstHalfAlf)
+        if (helpVal.lower() == helpVal):
+            isLower = True
+        if (helpVal.lower() in firstHalfAlf):
+            place = firstHalfAlf.index(helpVal.lower())
+            if (isLower):
+                decodedMessage.append(alphabet[place])
+            else:
+                decodedMessage.append(alphabet[place].upper())
+        elif (helpVal.lower() in secondHalfAlf):
+            place = secondHalfAlf.index(helpVal.lower()) + 13
+            if (isLower):
+                decodedMessage.append(alphabet[place])
+            else:
+                decodedMessage.append(alphabet[place].upper())
+        elif (helpVal in numbers):
+            numbers = ['0','1','2','3','4','5','6','7','8','9']
+            place = scrambledNumbers.index(helpVal)
+            decodedMessage.append(numbers[place])
+        helperMessage.pop(0)
+    print(decodedMessage)
+            
 
 #DO NOT REMOVE
 scrambler()
 #DO NOT REMOVE
 unScrambler('iwblffv!!!')
- 
+Decode('iwblffv4!!!')
 '''
 To count space I am going to use a series of numbers separated by ':'. The numbers will also be scrambles so you will need to code at the beggining of the 
 encrypted message to find out what it means
