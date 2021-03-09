@@ -32,7 +32,6 @@ def scrambler():
         scrambleKey = 'iw'
     elif (scrambleVal == 8):
         scrambleKey = 'xj'
-    print(scrambleKey)
     counterVal = 0
     firstHalfAlf = alphabet[0:13]
     secondHalfAlf = alphabet[13:26]
@@ -53,23 +52,26 @@ def scrambler():
         scrambledNumbers.pop(0)
         scrambledNumbers.append(helpVal1)
         counterVal += 1
-    print(firstHalfAlf)
-    print(secondHalfAlf)
-    numbers = ['0','1','2','3','4','5','6','7','8','9']
-    print(numbers)
-    print(scrambledNumbers)
 
 #Function that gets the input from the user and converts it into a format that the program can use
 unEncodedList = []
-def getInput():
-    #basic user interactions - no way to handle unexpected input but that should not be necessary
-    confirm = "n"
-    while (confirm.lower() != "y"):
-        unEncoded = input("Type you message here for it to be encoded:\n")
-        confirm = input("You message says \"" + unEncoded + "\". Do you want to encode this message(y/n)?\n")
-    global unEncodedList
-    unEncodedList = list(unEncoded)
-    return unEncodedList
+def getInput(mode):
+    if (mode == '0'):
+        #basic user interactions - no way to handle unexpected input but that should not be necessary
+        confirm = "n"
+        while (confirm.lower() != "y"):
+            unEncoded = input("Type you message here for it to be encoded:\n")
+            confirm = input("You message says \"" + unEncoded + "\". Do you want to encode this message(y/n)?\n")
+        global unEncodedList
+        unEncodedList = list(unEncoded)
+        return unEncodedList
+    if (mode == '1'):
+        confirm = 'n'
+        while (confirm.lower() != "y"):
+            Encoded = input("Type you message here for it to be decoded:\n")
+            confirm = input("You message says \"" + Encoded + "\". Do you want to decode this message(y/n)?\n")
+        EncodedList = list(Encoded)
+        return EncodedList
 
 #Keeps track of the  punctuation for the decoding process
 punctuationCode = []
@@ -88,7 +90,6 @@ def funcEncode(message):
     isLower = False
     encodedMessage = []
     messageHelper = []
-    print(s.join(message))
     messageHelper = message
     while (True):
         if (0 == len(messageHelper)):
@@ -127,7 +128,6 @@ def funcEncode(message):
             encodedMessage.append(scrambledNumbers[place])
         else:
             encodedMessage.append(helpVal1)
-            print('2')
         messageHelper.pop(0)
         if not (helpVal1 == ' '):
             letterCounter += 1
@@ -136,10 +136,8 @@ def funcEncode(message):
                 secondPlaceValue += 1
     encodedMessage += ['!','!','!'] + punctuationCode
     encodedMessage = list(scrambleKey) + encodedMessage
-    print(s.join(encodedMessage))
-    print(encodedMessage)
+    print('Encoded message: ' + s.join(encodedMessage))
     return s.join(encodedMessage)
-
 
 unDecoded = []
 #Finds what the letters and numbers should equal
@@ -151,19 +149,18 @@ def unScrambler(message):
     global numbers
     unDecoded = list(message)
     key = unDecoded[0] + unDecoded [1]
-    print(key)
     if (key == 'lf'):
         scrambleVal = 3
     elif (key == 'bz'):
-        scrambleVal = 4
-    elif (key == 'qk'):
         scrambleVal = 5
-    elif (key == 'rf'):
+    elif (key == 'qk'):
         scrambleVal = 6
-    elif (key == 'iw'):
+    elif (key == 'rf'):
         scrambleVal = 7
-    elif (key == 'xj'):
+    elif (key == 'iw'):
         scrambleVal = 8
+    elif (key == 'xj'):
+        scrambleVal = 9
     counterVal = 0
     firstHalfAlf = alphabet[0:13]
     secondHalfAlf = alphabet[13:26]
@@ -186,11 +183,7 @@ def unScrambler(message):
         scrambledNumbers.pop(0)
         scrambledNumbers.append(helpVal1)
         counterVal += 1
-    print(firstHalfAlf)
-    print(secondHalfAlf)
     numbers = ['0','1','2','3','4','5','6','7','8','9']
-    print(numbers)
-    print(scrambledNumbers)
 
 decodedMessage = []
 #Decodes the message
@@ -260,19 +253,53 @@ def Decode(message):
         if (helperMessage == []):
             break
         helpVal = helperMessage[0]
-        spaceCode.append(helpVal)
         helperMessage.pop(0)
-    print(spaceCode)
+        if (helpVal in numbers):
+            numbers = ['0','1','2','3','4','5','6','7','8','9']
+            place = scrambledNumbers.index(helpVal)
+            spaceCode.append(numbers[place])
+        elif (helpVal == ':'):
+            spaceCode.append(':')
+    counter = 0
+    #Adds spaces back in
+    while (True):
+        z = 2
+        if (spaceCode == []):
+            break
+        helpVal = spaceCode[0]
+        if (not spaceCode[1] == ':'):
+            helpVal2 = (spaceCode[0]*10)+spaceCode[1]
+            z = 3
+        else:
+            helpVal2 = spaceCode[0]
+        counter += int(helpVal2)
+        decodedMessage.insert(counter, ' ')
+        for x in range(z): spaceCode.pop(0)
+        counter += 1
+    s = ''
+    print('Decoded message: ' + s.join(decodedMessage))
 
-#DO NOT REMOVE
-scrambler()
-#DO NOT REMOVE
-unScrambler('iwblffv!!!')
-Decode('iwblffv4!!!')
+#Runs the functions needed for a full decode
+def fullDecode():
+    message = getInput('1')
+    unScrambler(message)
+    Decode(message)
 
-'''
-To count space I am going to use a series of numbers separated by ':'. The numbers will also be scrambles so you will need to code at the beggining of the 
-encrypted message to find out what it means
-Also, punctuation marks will be encrypted in the end of the message, making it impossible to read for someone who is trying to figure it our on their own
-Set variable to 0 for counter and set second variable to characters left
-'''
+#Runs function for full encode
+def fullEncode():
+    scrambler()
+    funcEncode(getInput('0'))
+
+while (True):
+    print("Choose a function \n0: Encode\n1: Decode\n2: Quit")
+    input1 = input('')
+    if (input1 == '0'):
+        fullEncode()
+        break
+    elif (input1 == '1'):
+        fullDecode()
+        break
+    elif (input1 == '2'):
+        break
+    else:
+        print('\"' + input1 + '\" is not a recognized command.')
