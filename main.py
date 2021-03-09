@@ -1,4 +1,4 @@
-#required module
+#required modules
 import random as r
 
 #creates an alphabet as a list
@@ -205,8 +205,9 @@ def Decode(message):
     counter = 0
     place = 0
     isLower = False
-    helperMessage.pop(0)
-    helperMessage.pop(0)
+    exclamationCounter = 0
+    for x in range(2): helperMessage.pop(0)
+    #Decodes the message but not the spaces
     while (True):
         if (0 == len(helperMessage)):
             break
@@ -229,17 +230,45 @@ def Decode(message):
             numbers = ['0','1','2','3','4','5','6','7','8','9']
             place = scrambledNumbers.index(helpVal)
             decodedMessage.append(numbers[place])
+        else:
+            decodedMessage.append(helpVal)
+        if (helpVal == '!'):
+            exclamationCounter += 1
+        else:
+            exclamationCounter = 0
+        if (exclamationCounter == 3):
+            exclamationCounter = 0
+            decodedMessage.pop(-1)
+            decodedMessage.pop(-1)
+            decodedMessage.pop(-1)
+            break
         helperMessage.pop(0)
+    helperMessage = list(message)
+    #Decodes the Spaces
+    while (True):
+        helpVal = helperMessage[0]
+        while (not helpVal == '!'):
+            helperMessage.pop(0)
+            helpVal = helperMessage[0]
+        if (helperMessage[1] == '!' and helperMessage[2] == '!'):
+            for x in range(3): helperMessage.pop(0)
+            if (helperMessage == []):
+                print(helperMessage)
+                break
+            else: 
+                pass
     print(decodedMessage)
-            
 
 #DO NOT REMOVE
 scrambler()
 #DO NOT REMOVE
+funcEncode(getInput())
 unScrambler('iwblffv!!!')
 Decode('iwblffv4!!!')
+
 '''
 To count space I am going to use a series of numbers separated by ':'. The numbers will also be scrambles so you will need to code at the beggining of the 
 encrypted message to find out what it means
 Also, punctuation marks will be encrypted in the end of the message, making it impossible to read for someone who is trying to figure it our on their own
+Set variable to 0 for counter and set second variable to characters left
 '''
