@@ -127,6 +127,8 @@ def funcEncode(message):
             numbers = ['0','1','2','3','4','5','6','7','8','9']
             place = numbers.index(helpVal1)
             encodedMessage.append(scrambledNumbers[place])
+        elif (helpVal1 == '!'):
+            encodedMessage.append('^')
         else:
             encodedMessage.append(helpVal1)
         messageHelper.pop(0)
@@ -224,6 +226,8 @@ def Decode(message):
             numbers = ['0','1','2','3','4','5','6','7','8','9']
             place = scrambledNumbers.index(helpVal)
             decodedMessage.append(numbers[place])
+        elif (helpVal == '^'):
+            decodedMessage.append('!')
         else:
             decodedMessage.append(helpVal)
         if (helpVal == '!'):
@@ -270,7 +274,7 @@ def Decode(message):
             break
         helpVal = spaceCode[0]
         if (not spaceCode[1] == ':'):
-            helpVal2 = (spaceCode[0]*10)+spaceCode[1]
+            helpVal2 = (int(spaceCode[0])*10)+int(spaceCode[1])
             print(helpVal2)
             z = 3
         else:
