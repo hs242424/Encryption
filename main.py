@@ -87,6 +87,7 @@ def funcEncode(message):
     global scrambledNumbers
     #Letter counter will count letters before a space so then the punctuation distance is correct
     secondPlaceValue = 0
+    thirdPlace = 0
     letterCounter = 0
     isLower = False
     encodedMessage = []
@@ -117,7 +118,12 @@ def funcEncode(message):
         #Function will eventually handle this punctuation '.', ' ', '!', '?'
         #might eventually be expanded to handle more if needed
         elif (helpVal1 == ' '):
-            if (secondPlaceValue != 0):
+            if (thirdPlace != 0):
+                punctuationCode.append(scrambledNumbers[thirdPlace])
+                punctuationCode.append(scrambledNumbers[secondPlaceValue])
+                secondPlaceValue = 0
+                thirdPlace = 0
+            elif (secondPlaceValue != 0):
                 punctuationCode.append(scrambledNumbers[secondPlaceValue])
                 secondPlaceValue = 0
             punctuationCode.append(scrambledNumbers[letterCounter])
@@ -137,6 +143,10 @@ def funcEncode(message):
             if (letterCounter > 9):
                 letterCounter = 0
                 secondPlaceValue += 1
+            if (secondPlaceValue > 9):
+                letterCounter = 0
+                secondPlaceValue = 0
+                thirdPlace += 1
     encodedMessage += ['!','!','!'] + punctuationCode
     encodedMessage = list(scrambleKey) + encodedMessage
     print('Encoded message: ' + s.join(encodedMessage))
@@ -270,7 +280,10 @@ def Decode(message):
         if (spaceCode == []):
             break
         helpVal = spaceCode[0]
-        if (not spaceCode[1] == ':'):
+        if (not spaceCode[1] == ':' and not spaceCode[2] == ':'):
+            helpVal2 = (int(spaceCode[0])*100) + (int(spaceCode[1])*10) + int(spaceCode[2])
+            z = 4
+        elif (not spaceCode[1] == ':'):
             helpVal2 = (int(spaceCode[0])*10)+int(spaceCode[1])
             z = 3
         else:
