@@ -61,16 +61,16 @@ def getInput(mode):
         #basic user interactions - no way to handle unexpected input but that should not be necessary
         confirm = "n"
         while (confirm.lower() != "y"):
-            unEncoded = input("Type you message here for it to be encoded:\n")
-            confirm = input("You message says \"" + unEncoded + "\". Do you want to encode this message(y/n)?\n")
+            unEncoded = input("Type your message here for it to be encoded:\n")
+            confirm = input("Your message says \"" + unEncoded + "\". Do you want to encode this message(y/n)?\n")
         global unEncodedList
         unEncodedList = list(unEncoded)
         return unEncodedList
     if (mode == '1'):
         confirm = 'n'
         while (confirm.lower() != "y"):
-            Encoded = input("Type you message here for it to be decoded:\n")
-            confirm = input("You message says \"" + Encoded + "\". Do you want to decode this message(y/n)?\n")
+            Encoded = input("Type your message here for it to be decoded:\n")
+            confirm = input("Your message says \"" + Encoded + "\". Do you want to decode this message(y/n)?\n")
         EncodedList = list(Encoded)
         return EncodedList
 
@@ -236,9 +236,7 @@ def Decode(message):
             exclamationCounter = 0
         if (exclamationCounter == 3):
             exclamationCounter = 0
-            decodedMessage.pop(-1)
-            decodedMessage.pop(-1)
-            decodedMessage.pop(-1)
+            for x in range(3): decodedMessage.pop(-1)
             break
         helperMessage.pop(0)
     helperMessage = list(message)
@@ -268,14 +266,12 @@ def Decode(message):
     counter = 0
     #Adds spaces back in
     while (True):
-        print(spaceCode)
         z = 2
         if (spaceCode == []):
             break
         helpVal = spaceCode[0]
         if (not spaceCode[1] == ':'):
             helpVal2 = (int(spaceCode[0])*10)+int(spaceCode[1])
-            print(helpVal2)
             z = 3
         else:
             helpVal2 = spaceCode[0]
