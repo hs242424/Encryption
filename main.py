@@ -19,6 +19,7 @@ def scrambler():
     global secondHalfAlf
     global scrambledNumbers
     scrambleVal = r.randrange(3,8)
+    scrambleVal = 7
     #This is the code that tells the decoder what to arrange the letters to
     if (scrambleVal == 3):
         scrambleKey = 'lf'
@@ -152,15 +153,15 @@ def unScrambler(message):
     if (key == 'lf'):
         scrambleVal = 3
     elif (key == 'bz'):
-        scrambleVal = 5
+        scrambleVal = 4
     elif (key == 'qk'):
-        scrambleVal = 6
+        scrambleVal = 5
     elif (key == 'rf'):
-        scrambleVal = 7
+        scrambleVal = 6
     elif (key == 'iw'):
-        scrambleVal = 8
+        scrambleVal = 7
     elif (key == 'xj'):
-        scrambleVal = 9
+        scrambleVal = 8
     counterVal = 0
     firstHalfAlf = alphabet[0:13]
     secondHalfAlf = alphabet[13:26]
@@ -263,12 +264,14 @@ def Decode(message):
     counter = 0
     #Adds spaces back in
     while (True):
+        print(spaceCode)
         z = 2
         if (spaceCode == []):
             break
         helpVal = spaceCode[0]
         if (not spaceCode[1] == ':'):
             helpVal2 = (spaceCode[0]*10)+spaceCode[1]
+            print(helpVal2)
             z = 3
         else:
             helpVal2 = spaceCode[0]
