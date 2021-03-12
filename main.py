@@ -19,7 +19,6 @@ def scrambler():
     global secondHalfAlf
     global scrambledNumbers
     scrambleVal = r.randrange(3,8)
-    scrambleVal = 7
     #This is the code that tells the decoder what to arrange the letters to
     if (scrambleVal == 3):
         scrambleKey = 'lf'
@@ -249,6 +248,7 @@ def Decode(message):
             for x in range(3): decodedMessage.pop(-1)
             break
         helperMessage.pop(0)
+        isLower = False
     helperMessage = list(message)
     counter = 0
     #Finds where spaces begin
